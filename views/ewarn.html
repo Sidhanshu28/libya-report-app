@@ -151,6 +151,15 @@
         width: 250px;
         left: 40%;
     }
+    #header1{
+        border:none !important;
+        text-align: center;
+    }
+    #header1 tr td{
+        width:25% !important;
+        border:none !important;
+        text-align: center;
+    }
 </style>
 <div class="loading" id="loader">
     <center>
@@ -162,7 +171,7 @@
 
 <div class="row">
     <div class="col-lg-12 col-md-6">
-        <table class="table table-borderless table-striped">
+        <table class="table table-borderless table-striped" id="header1">
             <tr>
                 <td colspan="8" style="text-align:center">
                     <h1>Ewarn Report</h1>
@@ -177,7 +186,7 @@
                 <td colspan="2">
                     <center>
                         <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{periodTypeButton}}
+                            <button id='period' class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{periodTypeButton}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
@@ -191,7 +200,7 @@
                 <td colspan="2">
                     <center>
                         <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{yearButton}}
+                            <button id="year" class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{yearButton}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
@@ -246,7 +255,7 @@
 
         <div class="col-lg-12 col-md-6">
             <center>
-                <button type="button" class="btn btn-primary" ng-click="generateReport(selectedProgram, report, selectedOuMode);showLoad();">{{'generate_report'| translate}}</button>
+                <button type="button" class="btn btn-primary" ng-click="submit(periodTypeButton);">{{'generate_report'| translate}}</button>
                 <button id="btnExport" class="btn btn-primary" ng-click="fnExcelReport();" ng-disabled="isDisabled"> Export To Excel </button>
             </center>
         </div>
@@ -254,11 +263,11 @@
         </div>
 
     </div>
-
+<br><br>
     <div id="divId" class="container" style="margin-left: 2px">
-        <table class="table table-hover reporttable">
-
-        </table>
+        <br>
+        <br>
+        <div id="print" style="float:right;width:100%"></div>
     </div>
 </div>
 <!--<div class="row" ng-if="selectedOrgUnit.programs.length < 1">

@@ -1,21 +1,7 @@
 /**
  * Created by hisp on 2/12/15.
  */
-libyaReportApp.directive('calendar', function () {
-  return {
-    require: 'ngModel',
-    link: function (scope, el, attr, ngModel) {
-      $(el).datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function (dateText) {
-          scope.$apply(function () {
-            ngModel.$setViewValue(dateText);
-          });
-        }
-      });
-    }
-  };
-});
+
 libyaReportApp
   .controller('phcController', function ($rootScope,
     $scope,
@@ -33,8 +19,8 @@ libyaReportApp
 
     //initially load tree
     selection.load();
-
-    getAllPrograms();
+    
+ 
     // Listen for OU changes
     selection.setListenerFunction(function () {
       $scope.selectedOrgUnitUid = selection.getSelected();
@@ -57,45 +43,10 @@ libyaReportApp
       a.click();
     }
 
-    $scope.selectedProgram = {};
-    function getAllPrograms() {
-      MetadataService.getAllPrograms().then(function (prog) {
-        $scope.allPrograms = prog.programs;
-        $scope.programs = [];
-        for (var i = 0; i < prog.programs.length; i++) {
-          if (prog.programs[i].withoutRegistration == false) {
-            $scope.programs.push(prog.programs[i]);
-          }
-        }
-      });
-    }
-
-
-    var psArray = [];
 
 
 
-    $scope.loadProgramStages = function (response) {
-      psArray = [];
-      for (var i = 0; i < response.programStages.length; i++) {
-        psArray[response.programStages[i].id] = response.programStages[i].name;
-      }
-      $scope.program = response;
-    };
 
-    $scope.updateStartDate = function (startdate) {
-      var date = startdate;
-      var output = date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-      $scope.startdateSelected = output;
-      //  alert("$scope.startdateSelected---"+$scope.startdateSelected);
-    };
-
-    $scope.updateEndDate = function (enddate) {
-      var date = enddate;
-      var output = date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-      $scope.enddateSelected = output;
-      //  alert("$scope.enddateSelected---"+ $scope.enddateSelected);
-    };
 
     $scope.fnExcelReport = function () {
 

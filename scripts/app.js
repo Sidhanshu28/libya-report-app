@@ -14,16 +14,16 @@ var libyaReportApp = angular.module('libyaReportApp',['ui.bootstrap',
     'pascalprecht.translate',
     'trackerReportsAppServices',
     'leftbarModule'
-]).controller('DropdownCtrl', function ($scope) {
+]).controller('DropdownCtrl', function ($scope,$rootScope) {
     
     //select period type
-    $scope.periodTypeButton = "Select period type";
+    $rootScope.periodTypeButton = "Select period type";
     $scope.periodTypeActions = [
         "Monthly", "Quarterly", "Six-monthly", "Yearly"
     ];
 
     $scope.changePeriodTypeText = function (name) {
-        $scope.periodTypeButton = name;
+        $rootScope.periodTypeButton = name;
         if(name == 'Monthly'){
             $('#month').show();            
             $('#month').attr("disabled", false);
@@ -50,43 +50,43 @@ var libyaReportApp = angular.module('libyaReportApp',['ui.bootstrap',
     }
 
     //select year
-    $scope.yearButton = "Select year";
+    $rootScope.yearButton = "Select year";
     $scope.yearActions = [
         "2018", "2017", "2016"
     ];
 
     $scope.changeyearText = function (name) {
-        $scope.yearButton = name;
+        $rootScope.yearButton = name;
     }
 
     //select six-monthly
-    $scope.smButton = "Select period";
+    $rootScope.smButton = "Select period";
     $scope.smActions = [
         "January-June", "July-December"
     ];
 
     $scope.changesmText = function (name) {
-        $scope.smButton = name;
+        $rootScope.smButton = name;
     }
 
     //select quarterly
-    $scope.quarterButton = "Select quarter";
+    $rootScope.quarterButton = "Select quarter";
     $scope.quarterActions = [
         "January-March", "April-June", "June-September","October-December"
     ];
 
     $scope.changequarterText = function (name) {
-        $scope.quarterButton = name;
+        $rootScope.quarterButton = name;
     }
 
     //select monthly
-    $scope.monthButton = "Select month";
+    $rootScope.monthButton = "Select month";
     $scope.monthActions = [
         "January", "February", "March","April","May","June","July","August","september","October","November","December"
     ];
 
     $scope.changemonthText = function (name) {
-        $scope.monthButton = name;
+        $rootScope.monthButton = name;
     }
 })
 

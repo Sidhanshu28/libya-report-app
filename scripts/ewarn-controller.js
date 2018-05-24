@@ -1,21 +1,7 @@
 /**
- * Created by hisp on 2/12/15.
+ * Created by sidhanshu on 24/05/18.
  */
-libyaReportApp.directive('calendar', function () {
-  return {
-    require: 'ngModel',
-    link: function (scope, el, attr, ngModel) {
-      $(el).datepicker({
-        dateFormat: 'yy-mm-dd',
-        onSelect: function (dateText) {
-          scope.$apply(function () {
-            ngModel.$setViewValue(dateText);
-          });
-        }
-      });
-    }
-  };
-});
+
 libyaReportApp
   .controller('ewarnController', function ($rootScope,
     $scope,
@@ -23,13 +9,10 @@ libyaReportApp
     MetadataService) {
 
 
-    //PSI
-    //const SQLVIEW_TEI_PS =  "FcXYoEGIQIR";
-    // const SQLVIEW_TEI_ATTR = "WMIMrJEYUxl";
     var def = $.Deferred();
-    //MSF
-      $scope.select = 'ewarn';
-     
+
+    $scope.select = 'ewarn';
+
 
     $timeout(function () {
       $scope.date = {};
@@ -40,13 +23,12 @@ libyaReportApp
     //initially load tree
     selection.load();
 
-    getAllPrograms();
     // Listen for OU changes
     selection.setListenerFunction(function () {
       $scope.selectedOrgUnitUid = selection.getSelected();
       loadPrograms();
     }, false);
-
+    
     loadPrograms = function () {
       MetadataService.getOrgUnit($scope.selectedOrgUnitUid).then(function (orgUnit) {
         $timeout(function () {
@@ -54,6 +36,7 @@ libyaReportApp
         });
       });
     }
+    
 
     function download(text, name, type) {
       var a = document.createElement("a");
@@ -63,52 +46,74 @@ libyaReportApp
       a.click();
     }
 
-    $scope.selectedProgram = {};
-    function getAllPrograms() {
-      MetadataService.getAllPrograms().then(function (prog) {
-        $scope.allPrograms = prog.programs;
-        $scope.programs = [];
-        for (var i = 0; i < prog.programs.length; i++) {
-          if (prog.programs[i].withoutRegistration == false) {
-            $scope.programs.push(prog.programs[i]);
-          }
-        }
-      });
-    }
-
-
-    var psArray = [];
-
-
-
-    $scope.loadProgramStages = function (response) {
-      psArray = [];
-      for (var i = 0; i < response.programStages.length; i++) {
-        psArray[response.programStages[i].id] = response.programStages[i].name;
-      }
-      $scope.program = response;
-    };
-
-    $scope.updateStartDate = function (startdate) {
-      var date = startdate;
-      var output = date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-      $scope.startdateSelected = output;
-      //  alert("$scope.startdateSelected---"+$scope.startdateSelected);
-    };
-
-    $scope.updateEndDate = function (enddate) {
-      var date = enddate;
-      var output = date.replace(/(\d\d)\/(\d\d)\/(\d{4})/, "$3-$1-$2");
-      $scope.enddateSelected = output;
-      //  alert("$scope.enddateSelected---"+ $scope.enddateSelected);
-    };
 
     $scope.fnExcelReport = function () {
 
       var blob = new Blob([document.getElementById('divId').innerHTML], {
         type: 'text/plain;charset=utf-8'
       });
-      saveAs(blob, "Tracker events report.xls");
+      saveAs(blob, "Report.xls");
+
+    };
+
+
+    $scope.submit = function () {
+
+      var ou = $scope.selectedOrgUnitUid[0];
+      var ds = DATASET_ID_EWARN_REPORT;
+      var pe = getPeriod($rootScope.periodTypeButton);
+
+      MetadataService.getHTMLfromDataset(ds, ou,pe).then(function (response) {
+        $("#print").append(response);
+     //   $("table").setAttribute("");
+        $("table").removeAttr("style");
+        $("table tr td span span").removeAttr("style");
+        $("table tr td span").removeAttr("style");
+        $("table tr td").removeAttr("style");
+        $("table tr").removeAttr("style");
+        $("table").addClass("table table-bordered table-hover");
+
+        $("table tr").each(function (index) {
+          var sum = 0;
+          var flag = false;
+          $(this).find(".et16").each(function (cellindex) {
+            flag = true;
+            var value = 0;
+            if ($(this)[0].innerText == "") {
+              value = 0;
+            }
+            else {
+              value = parseInt($(this)[0].innerText);
+            }
+            sum = sum + value;
+          });
+
+
+          if (flag) {
+            if ($(this)[0].childElementCount < 5 && index != 3) {
+              var col = $(this)[0].lastElementChild.colSpan;
+              $(this)[0].lastElementChild.colSpan = col + 1;
+            } else {
+              var cell = "<td style='width:50px'>" + sum + "</td>";
+              $(this).append(cell);
+            }
+          }
+          else if (!flag && $(this)[0].childElementCount < 5 && index != 3) {
+            var col = $(this)[0].lastElementChild.colSpan;
+            $(this)[0].lastElementChild.colSpan = col + 1;
+          }
+          else if (!flag && index == 3) {
+            var cell = "<td style='width:50px'><b>Sum</b>   </td>";
+            $(this).append(cell);
+          }
+          else {
+            var cell = "<td style='width:50px'></td>";
+            $(this).append(cell);
+          }
+
+
+        });
+      });
 
     };
 
