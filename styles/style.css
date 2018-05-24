@@ -1207,3 +1207,13 @@ input, button, select, textarea {
     color: black;
     min-height: 100%;
 }
+.custom-box{
+    width:75% !important;
+    margin-left:12.5%;
+}
+li{
+    cursor: pointer;
+}
+.custom-dropdown {
+    min-width:80%;
+}
