@@ -11,24 +11,16 @@
 </div>
 <br>
 <center>
-    <div class="dropdown" ng-controller="LeftBarMenuController">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select report to generate
-            <span class="caret"></span>
-        </button>
-        <ul class="dropdown-menu" style="margin-left:10%">
-            <li>
-                <a href ng-click="ewarnReport()">{{"EWARN Report"| translate}}</a>
-            </li>
-            <li>
-                <a href ng-click="phcReport()">{{"PHC Report"| translate}}</a>
-            </li>
-            <li>
-                <a href ng-click="hospitalReport()">{{"Hospital Report"| translate}}</a>
-            </li>
-            <li>
-                <a href ng-click="medicalCenterReport()">{{"Medical Center Report"| translate}}</a>
-            </li>
-        </ul>
-    </div>
+
+        <div class="dropdown" ng-controller="LeftBarMenuController">
+                <button class="btn btn-primary dropdown-toggle custom-dropdown" type="button" data-toggle="dropdown">{{reportButton}}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" style="margin-left:12%;width:75%;">
+                    <li>
+                      <a ng-click="changeReportText(action)" ng-repeat="action in reportActions">{{action}}</a>
+                    </li>
+                  </ul>
+                </div>
 </center>
 <br>
