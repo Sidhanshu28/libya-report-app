@@ -1,7 +1,7 @@
 /**
  * Created by hisp on 2/12/15.
  */
-msfReportsApp.directive('calendar', function () {
+libyaReportApp.directive('calendar', function () {
   return {
     require: 'ngModel',
     link: function (scope, el, attr, ngModel) {
@@ -16,7 +16,7 @@ msfReportsApp.directive('calendar', function () {
     }
   };
 });
-msfReportsApp
+libyaReportApp
   .controller('ewarnController', function ($rootScope,
     $scope,
     $timeout,
@@ -29,6 +29,8 @@ msfReportsApp
     var def = $.Deferred();
     //MSF
       $scope.select = 'ewarn';
+     
+
     $timeout(function () {
       $scope.date = {};
       $scope.date.startDate = new Date();

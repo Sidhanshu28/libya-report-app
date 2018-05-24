@@ -1,7 +1,7 @@
 /**
  * Created by hisp on 2/12/15.
  */
-msfReportsApp.directive('calendar', function () {
+libyaReportApp.directive('calendar', function () {
   return {
     require: 'ngModel',
     link: function (scope, el, attr, ngModel) {
@@ -16,7 +16,7 @@ msfReportsApp.directive('calendar', function () {
     }
   };
 });
-msfReportsApp
+libyaReportApp
   .controller('hospitalController', function ($rootScope,
     $scope,
     $timeout,
