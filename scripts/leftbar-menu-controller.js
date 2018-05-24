@@ -1,33 +1,41 @@
 //Controller for column show/hide
-msfReportsApp.controller('LeftBarMenuController',
+var leftbarModule = angular.module('leftbarModule',['ui.bootstrap'
+]).controller('LeftBarMenuController',
     function ($scope,
         $location) {
+            
+            var loc = $location.$$url;
 
-            $('.dropdown').on( 'click', '.dropdown-menu li a', function() { 
-                var target = $(this).html();
-             //debugger
+            if(loc == '/ewarnreport')$scope.reportButton='Ewarn Report'
+            else if(loc == '/phcreport')$scope.reportButton='PHC Report'
+            else if(loc == '/hospitalreport')$scope.reportButton='Hospital Report'
+            else if(loc == '/medicalcenterreport')$scope.reportButton='Medical Center Report'
+            else $scope.reportButton='Select Report'
+
+     //       $scope.reportButton = "Select Report";
+            $scope.reportActions = [
+                "Ewarn Report", "PHC Report", "Hospital Report", "Medical Center Report"
+            ];
+        
+            $scope.changeReportText = function (name) {
                
-                //Adds active class to selected item
-                $(this).parents('.dropdown-menu').find('li').removeClass('active');
-                $(this).parent('li').addClass('active');
-         
-                //Displays selected text on dropdown-toggle button
-                $(this).parents('.dropdown').find('.dropdown-toggle').html(target + ' <span class="caret"></span>');
-            });
-
-             
-        $scope.ewarnReport = function () {
-            $location.path('/ewarnreport').search();
-        };
-        $scope.phcReport = function () {
-            $location.path('/phcreport').search();
-        };
-        $scope.hospitalReport = function () {
-            $location.path('/hospitalreport').search();
-        };
-        $scope.medicalCenterReport = function () {
-            $location.path('/medicalcenterreport').search();
-        };
-
-
+            
+                if(name == "Ewarn Report"){
+                    $location.path('/ewarnreport').search();
+                    $scope.reportButton = name;
+                }
+                if(name == "PHC Report"){
+                    $location.path('/phcreport').search();
+                    $scope.reportButton = name;
+                }
+                if(name == "Hospital Report"){
+                    $location.path('/hospitalreport').search();
+                    $scope.reportButton = name;
+                }
+                if(name == "Medical Center Report"){
+                    $location.path('/medicalcenterreport').search();
+                    $scope.reportButton = name;
+                }
+              
+            }
     });
