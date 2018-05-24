@@ -164,23 +164,80 @@
     <div class="col-lg-12 col-md-6">
         <table class="table table-borderless table-striped">
             <tr>
-                <td colspan="5" style="text-align:center">
+                <td colspan="8" style="text-align:center">
                     <h1>Ewarn Report</h1>
                 </td>
             </tr>
             <tr>
-                <td>{{'orgUnitLabel' | translate}}</td>
-                <td>
-                    <input type="text" width="100%" class="form-control" value="{{selectedOrgUnit.name|| 'Please select org unit'| translate}}" ng-disabled="true">
+
+                <td colspan="2">
+                    <input type="text" width="75%" class="form-control custom-box" value="{{selectedOrgUnit.name|| 'Please select org unit'| translate}}"
+                        ng-disabled="true">
                 </td>
-                <td>
-                    <label>Choose Date Between </label>
+                <td colspan="2">
+                    <center>
+                        <div class="dropdown" ng-controller="DropdownCtrl">
+                            <button class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{periodTypeButton}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                                <li>
+                                    <a ng-click="changePeriodTypeText(action)" ng-repeat="action in periodTypeActions">{{action}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </center>
                 </td>
-                <td>
-                    <input class="df" calendar ng-model='startdate' ng-change="updateStartDate(startdate);" required />
+                <td colspan="2">
+                    <center>
+                        <div class="dropdown" ng-controller="DropdownCtrl">
+                            <button class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{yearButton}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                                <li>
+                                    <a ng-click="changeyearText(action)" ng-repeat="action in yearActions">{{action}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </center>
                 </td>
-                <td>
-                    <input class="df" calendar ng-model='enddate' ng-change="updateEndDate(enddate);" required/>
+                <td colspan="2">
+                    <center>
+                        <!--monthly-->
+                        <div class="dropdown" ng-controller="DropdownCtrl">
+                            <button  id='month' class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown" disabled>{{monthButton}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                                <li>
+                                    <a ng-click="changemonthText(action)" ng-repeat="action in monthActions">{{action}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- quarterly -->
+                        <div class="dropdown" ng-controller="DropdownCtrl">
+                            <button id="quarter" class="btn btn-default dropdown-toggle custom-box"  style="display:none" type="button" data-toggle="dropdown">{{quarterButton}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                                <li>
+                                    <a ng-click="changequarterText(action)" ng-repeat="action in quarterActions">{{action}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                         <!-- six-monthly -->
+                         <div class="dropdown" ng-controller="DropdownCtrl">
+                            <button id="sm" class="btn btn-default dropdown-toggle custom-box" style="display:none" type="button" data-toggle="dropdown">{{smButton}}
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                                <li>
+                                    <a ng-click="changesmText(action)" ng-repeat="action in smActions">{{action}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </center>
                 </td>
             </tr>
 
@@ -188,12 +245,13 @@
         </table>
 
         <div class="col-lg-12 col-md-6">
-           <center> <button type="button" class="btn btn-primary" ng-click="generateReport(selectedProgram, report, selectedOuMode);showLoad();"
-                ng-disabled="!selectedProgram">{{'generate_report'| translate}}</button>
+            <center>
+                <button type="button" class="btn btn-primary" ng-click="generateReport(selectedProgram, report, selectedOuMode);showLoad();">{{'generate_report'| translate}}</button>
                 <button id="btnExport" class="btn btn-primary" ng-click="fnExcelReport();" ng-disabled="isDisabled"> Export To Excel </button>
-            </center></div>
+            </center>
+        </div>
         <div class="col-lg-12 col-md-6">
-              </div>
+        </div>
 
     </div>
 
