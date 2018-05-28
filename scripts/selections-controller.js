@@ -3,17 +3,28 @@ var selections = angular.module('selections', ['ui.bootstrap'
 ]).controller('selectionsController',
     function ($scope,
         $location,MetadataService) {
+            $scope.full=true;
+           $scope.change = function(val){
+            if(val == '1'){
+                $scope.full=true;
+                $scope.ds=false;
+               }
+               if(val == '2'){
+                $scope.ds=true;
+                $scope.full=false; 
+               }
+           };
             var loc = $location.$$url;
 
             if (loc == '/ewarnreport') $scope.reportButton = 'Ewarn Report'
             else if (loc == '/phcreport') $scope.reportButton = 'PHC Report'
             else if (loc == '/hospitalreport') $scope.reportButton = 'Hospital Report'
-            else if (loc == '/medicalcenterreport') $scope.reportButton = 'Medical Center Report'
+            else if (loc == '/medicalcenterreport') $scope.reportButton = 'Medical Center'
             else $scope.reportButton = 'Select Report'
     
             //       $scope.reportButton = "Select Report";
             $scope.reportActions = [
-                "Ewarn Report", "PHC Report", "Hospital Report", "Medical Center Report"
+                "Ewarn Report", "PHC Report", "Hospital Report", "Medical Center"
             ];
     
             $scope.changeReportText = function (name) {
@@ -31,7 +42,7 @@ var selections = angular.module('selections', ['ui.bootstrap'
                     $location.path('/hospitalreport').search();
                     $scope.reportButton = name;
                 }
-                if (name == "Medical Center Report") {
+                if (name == "Medical Center") {
                     $location.path('/medicalcenterreport').search();
                     $scope.reportButton = name;
                 }
@@ -48,8 +59,10 @@ var selections = angular.module('selections', ['ui.bootstrap'
                             if(attr[j].attribute.name == 'Report app' && attr[j].value == 'true'){
                                 for(var k = 0; k < attr.length; k++){
                                     if(attr[k].attribute.name != 'Report app' && attr[k].value == 'true'){
-                                        var obj = {'name': datasets[i].name, 'type': attr[k].attribute.name};
-                                        $scope.datasetActions.push(obj);
+                                      // if(attr[k].attribute.name == $scope.reportButton){
+                                            var obj = {'name': datasets[i].name, 'type': attr[k].attribute.name};
+                                            $scope.datasetActions.push(obj);
+                                      // }
                                     }
                                 }
                             }
@@ -60,4 +73,5 @@ var selections = angular.module('selections', ['ui.bootstrap'
             $scope.changeDatasetText = function (name) {
                 $scope.datasetButton = name;
             };
+        
     });
