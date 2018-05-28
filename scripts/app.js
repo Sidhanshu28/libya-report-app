@@ -13,7 +13,7 @@ var libyaReportApp = angular.module('libyaReportApp',['ui.bootstrap',
     'd2Services',
     'pascalprecht.translate',
     'trackerReportsAppServices',
-    'leftbarModule'
+    'selections'
 ]).controller('DropdownCtrl', function ($scope,$rootScope) {
     
     //select period type
