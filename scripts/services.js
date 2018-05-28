@@ -46,4 +46,22 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
             }
 
         }
-    });
+    }).factory('util', function () {
+        return {
+            getweeks: function (sd, ed) {
+                var arrayw = [];
+                var i = 1;
+                while (ed > sd) {
+                    var wsd = new Date(sd);
+                    var wed = new Date(sd);
+                    var wed = wed.setDate(wed.getDate() + 6);
+                    if (i < 10) { j = "0" + i; }
+                    else { j = i; }
+                    arrayw.push(new Date(wsd).getFullYear() + "W" + j + " - " + getProperDate(wsd) + " - " + getProperDate(new Date(wed)));
+                    i++;
+                    sd = new Date(sd).setDate(new Date(sd).getDate() + 7);
+                }
+                return arrayw;
+            }
+        }
+    });    
