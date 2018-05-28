@@ -1,4 +1,4 @@
-<div class="col-lg-12 col-md-6">
+<div class="col-lg-12 col-md-6" ng-controller="selectionsController">
     <table class="table table-borderless table-striped" id="selections">
         <tr>
             <td>
@@ -16,7 +16,7 @@
             </td>
             <td>
                 <div class="checkbox checkbox-primary">
-                    <input id="checkbox2" type="checkbox" ng-model="full" ng-checked='!ds'>
+                    <input id="checkbox2" type="checkbox" ng-model="full" ng-change="change('1')">
                     <label for="checkbox2">
                         Generate full report
                     </label>
@@ -25,20 +25,23 @@
             </td>
             <td>
                 <div class="checkbox checkbox-primary">
-                    <input id="checkbox3" type="checkbox" ng-model='ds'>
+                    <input id="checkbox3" type="checkbox" ng-model='ds' ng-change="change('2')" ng-disabled="reportButton=='Ewarn Report'">
                     <label for="checkbox3">
-                        select datasets
+                        Select datasets
                     </label>
                 </div>
 
             </td>
             <td colspan="3">
                 <div class="dropdown" ng-controller="selectionsController">
-                    <button style='width:100%' class="btn btn-default dropdown-toggle custom-dropdown" ng-disabled="full" type="button" data-toggle="dropdown">{{datasetButton}}
+                    <button style='width:100%' class="btn btn-default dropdown-toggle custom-dropdown" ng-disabled="full && !ds" type="button" data-toggle="dropdown">{{datasetButton}}
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" style="width:100%;">
-                        <li class='dropdown-header'>
+                        <li ng-repeat="action in datasetActions | filter:reportButton">
+                                <a ng-click="changeDatasetText(action.name)">{{action.name}}</a>
+                        </li>
+                        <!-- <li class='dropdown-header'>
                             Ewarn Report
                         </li>
                         <li ng-repeat="action in datasetActions" ng-if='action.type=="Ewarn"'>
@@ -61,7 +64,7 @@
                         </li>
                         <li ng-repeat="action in datasetActions" ng-if='action.type=="Medical Center"'>
                             <a ng-click="changeDatasetText(action.name)">{{action.name}}</a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </div>
