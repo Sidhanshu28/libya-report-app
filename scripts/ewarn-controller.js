@@ -28,7 +28,7 @@ libyaReportApp
       $scope.selectedOrgUnitUid = selection.getSelected();
       loadPrograms();
     }, false);
-    
+
     loadPrograms = function () {
       MetadataService.getOrgUnit($scope.selectedOrgUnitUid).then(function (orgUnit) {
         $timeout(function () {
@@ -36,7 +36,7 @@ libyaReportApp
         });
       });
     }
-    
+
 
     function download(text, name, type) {
       var a = document.createElement("a");
@@ -62,18 +62,18 @@ libyaReportApp
       var ou = $scope.selectedOrgUnitUid[0];
       var ds = DATASET_ID_EWARN_REPORT;
       var pe = getPeriod($rootScope.periodTypeButton);
+      $("#ewarnTable table").remove();
+      MetadataService.getHTMLfromDataset(ds, ou, pe).then(function (response) {
+        $("#ewarnTable").append('<br>' + response);
+        //   $("table").setAttribute("");
+        $("#ewarnTable table").removeAttr("style");
+        $("#ewarnTable table tr td span span").removeAttr("style");
+        $("#ewarnTable table tr td span").removeAttr("style");
+        $("#ewarnTable table tr td").removeAttr("style");
+        $("#ewarnTable table tr").removeAttr("style");
+        $("#ewarnTable table").addClass("table table-bordered table-hover");
 
-      MetadataService.getHTMLfromDataset(ds, ou,pe).then(function (response) {
-        $("#print").append(response);
-     //   $("table").setAttribute("");
-        $("table").removeAttr("style");
-        $("table tr td span span").removeAttr("style");
-        $("table tr td span").removeAttr("style");
-        $("table tr td").removeAttr("style");
-        $("table tr").removeAttr("style");
-        $("table").addClass("table table-bordered table-hover");
-
-        $("table tr").each(function (index) {
+        $("#ewarnTable table tr").each(function (index) {
           var sum = 0;
           var flag = false;
           $(this).find(".et16").each(function (cellindex) {
@@ -91,28 +91,29 @@ libyaReportApp
 
           if (flag) {
             if ($(this)[0].childElementCount < 5 && index != 3) {
-              var col = $(this)[0].lastElementChild.colSpan;
-              $(this)[0].lastElementChild.colSpan = col + 1;
+              var cell = "<td></td>";
+            $(this).prepend(cell);
             } else {
-              var cell = "<td style='width:50px'>" + sum + "</td>";
-              $(this).append(cell);
+              var cell = "<td>" + sum + "</td>";
+              $(this).prepend(cell);
             }
           }
           else if (!flag && $(this)[0].childElementCount < 5 && index != 3) {
-            var col = $(this)[0].lastElementChild.colSpan;
-            $(this)[0].lastElementChild.colSpan = col + 1;
+           var cell = "<td></td>";
+            $(this).prepend(cell);
           }
           else if (!flag && index == 3) {
-            var cell = "<td style='width:50px'><b>Sum</b>   </td>";
-            $(this).append(cell);
+            var cell = "<td><b>Sum</b>   </td>";
+            $(this).prepend(cell);
           }
           else {
-            var cell = "<td style='width:50px'></td>";
-            $(this).append(cell);
+            var cell = "<td></td>";
+            $(this).prepend(cell);
           }
 
 
         });
+
       });
 
     };
