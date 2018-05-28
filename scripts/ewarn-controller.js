@@ -61,7 +61,7 @@ libyaReportApp
 
       var ou = $scope.selectedOrgUnitUid[0];
       var ds = DATASET_ID_EWARN_REPORT;
-      var pe = getPeriod($rootScope.periodTypeButton);
+      var pe = $rootScope.weekButton.split(" ")[0];
       $("#ewarnTable table").remove();
       MetadataService.getHTMLfromDataset(ds, ou, pe).then(function (response) {
         $("#ewarnTable").append('<br>' + response);
