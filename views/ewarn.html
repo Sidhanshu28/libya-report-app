@@ -156,7 +156,7 @@
         width:100%;
     }
     #ewarnTable table tr td{
-        width:100% !important;
+        width:50px !important;
         text-align:right;
     }
 </style>
@@ -168,9 +168,9 @@
 </div>
 
 <div ng-include="'views/selections.html'"></div>
-<div class="row">
+<div class="row" style="margin:0 !important">
     <div class="col-lg-12 col-md-6">
-        <table class="table table-borderless table-striped" id="header1">
+        <table class="table table-borderless table-striped" id="header1"  ng-controller="DropdownCtrl">
             <tr>
                 <td colspan="8" style="text-align:center">
                     <h1>Ewarn Report</h1>
@@ -184,13 +184,13 @@
                 </td>
                 <td colspan="2">
                     <center>
-                        <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button id='period' class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{periodTypeButton}}
+                        <div class="dropdown">
+                            <button id='period' class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{ewarnperiodTypeButton}}
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
                                 <li>
-                                    <a ng-click="changePeriodTypeText(action)" ng-repeat="action in periodTypeActions">{{action}}</a>
+                                    <a ng-click="changeewarnPeriodTypeText(action)" ng-repeat="action in ewarnperiodTypeActions">{{action}}</a>
                                 </li>
                             </ul>
                         </div>
@@ -198,7 +198,7 @@
                 </td>
                 <td colspan="2">
                     <center>
-                        <div class="dropdown" ng-controller="DropdownCtrl">
+                        <div class="dropdown">
                             <button id="year" class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown">{{yearButton}}
                                 <span class="caret"></span>
                             </button>
@@ -211,41 +211,18 @@
                     </center>
                 </td>
                 <td colspan="2">
-                    <center>
-                        <!--monthly-->
-                        <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button  id='month' class="btn btn-default dropdown-toggle custom-box" type="button" data-toggle="dropdown" disabled>{{monthButton}}
+                        <!--Weekly-->
+                        <div class="dropdown">
+                            <button  class="btn btn-default dropdown-toggle custom-box" style="width:100% !important;" type="button" data-toggle="dropdown">{{weekButton}}
                                 <span class="caret"></span>
                             </button>
-                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
+                            <ul class="dropdown-menu" style="margin-left:13%;width:105% !important;overflow: scroll;height:700%">
                                 <li>
-                                    <a ng-click="changemonthText(action)" ng-repeat="action in monthActions">{{action}}</a>
+                                    <a ng-click="changeweekText(actions)" ng-repeat="actions in weekActions">{{actions}}</a>
                                 </li>
                             </ul>
                         </div>
-                        <!-- quarterly -->
-                        <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button id="quarter" class="btn btn-default dropdown-toggle custom-box"  style="display:none" type="button" data-toggle="dropdown">{{quarterButton}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
-                                <li>
-                                    <a ng-click="changequarterText(action)" ng-repeat="action in quarterActions">{{action}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                         <!-- six-monthly -->
-                         <div class="dropdown" ng-controller="DropdownCtrl">
-                            <button id="sm" class="btn btn-default dropdown-toggle custom-box" style="display:none" type="button" data-toggle="dropdown">{{smButton}}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" style="margin-left:19%;width:75%;">
-                                <li>
-                                    <a ng-click="changesmText(action)" ng-repeat="action in smActions">{{action}}</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </center>
+                    
                 </td>
             </tr>
 
@@ -263,7 +240,7 @@
 
     </div>
 <br><br>
-    <div id="divId" class="container" style="margin-left: 2px">
+    <div id="divId" class="" style="margin-left: 0px">
         <div id="ewarnTable" style="float:right;width:100%"></div>
         <br><br>
     </div>
