@@ -30,6 +30,19 @@ var trackerReportsAppServices = angular.module('trackerReportsAppServices', [])
                     }
                 });
                 return def;
+            },
+            getDatasets: function () {
+                var def = $.Deferred();
+                $.ajax({
+                    type: "GET",
+                    dataType: "json",
+                    contentType: "application/json",
+                    url: '../../dataSets.json?fields=name,id,attributeValues[value,attribute[id,name]]&paging=none',
+                    success: function (data) {
+                        def.resolve(data);
+                    }
+                });
+                return def;
             }
 
         }
